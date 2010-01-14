@@ -188,9 +188,9 @@ munin plugin to monitor APC UPS via apcupsd by apcaccess.
 
 =head1 REPOSITORY
 
-L<http://github.com/hirose31/munin-apcupsd-fixme/tree/master>
+L<http://github.com/hirose31/munin-apcupsd>
 
-  git clone git://github.com/hirose31/fixme.git
+  git clone git://github.com/hirose31/munin-apcupsd.git
 
 patches and collaborators are welcome.
 
