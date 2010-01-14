@@ -7,6 +7,7 @@ use Pod::Usage;
 
 our $APCACCESS = $ENV{apcaccess} || "/sbin/apcaccess";
 our $UPS_MODEL = $ENV{ups_model} || "ES 725";
+our $VERSION   = 1.0;
 my  %Graph;
 my  %Metric;
 
@@ -172,6 +173,18 @@ B<apcupsd_time> [ I<config>|I<fetch> ]
 =head1 DESCRIPTION
 
 munin plugin to monitor APC UPS via apcupsd by apcaccess.
+
+=head1 INSTALLATION
+
+  cp apcupsd_pct $MUNIN_LIBDIR/plugsin/
+  
+  cd YOUR_MUNIN_PLUGINS_DIR
+  (make symbolic links different name)
+  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pct apcupsd_pct
+  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pct apcupsd_volt
+  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pct apcupsd_time
+  
+  restart munin-node
 
 =head1 REPOSITORY
 
