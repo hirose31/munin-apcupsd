@@ -57,10 +57,12 @@ sub decide_monitor_type {
         graph_title => "APC Status".($UPS_MODEL?" ($UPS_MODEL)":"")." - ",
         graph_category => "ups",
         graph_info     => "This graph shows information about your APC UPS",
+        graph_args     => "--base 1000 --lower-limit 0",
        );
 
     if ($type eq "pct") {
-        $Graph{graph_title} .= "Percentage";
+        $Graph{graph_title}  .= "Percentage";
+        $Graph{graph_vlabel}  = "%";
         %Metric =(
             LOADPCT => {
                 label    => "load capacity pct",
@@ -70,7 +72,8 @@ sub decide_monitor_type {
             },
            );
     } elsif ($type eq "volt") {
-        $Graph{graph_title} .= "Voltage";
+        $Graph{graph_title}  .= "Voltage";
+        $Graph{graph_vlabel}  = "Volts";
         %Metric =(
             LINEV => {
                 label    => "line voltage as returned by the UPS",
@@ -81,6 +84,7 @@ sub decide_monitor_type {
            );
     } elsif ($type eq "time") {
         $Graph{graph_title} .= "Time";
+        $Graph{graph_vlabel}  = "minutes";
         %Metric =(
             TIMELEFT => {
                 label    => "remaining runtime left on batteries",
