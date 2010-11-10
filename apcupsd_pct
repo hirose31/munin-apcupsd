@@ -49,6 +49,7 @@ pwr
   NOMPOWER
     330 Watts
   LOADMETRIC=LOADPCT/100*NOMPOWER gives realtime power consumption in WATTS
+
 =end comment
 
 =cut
@@ -56,7 +57,7 @@ pwr
 sub decide_monitor_type {
     my $type = $0 =~ /_pct/  ? "pct"  :
                $0 =~ /_volt/ ? "volt" :
-               $0 =~ /_time/ ? "time" : 
+               $0 =~ /_time/ ? "time" :
                $0 =~ /_pwr/  ? "pwr"  : undef
                    or croak "unknown monitor type: $0";
 
@@ -169,7 +170,7 @@ sub proccess_status {
         my $nom_pwr = sprintf "%.1f", ($status->{NOMPOWER} =~ /([\d]+\.?[\d]*)/) ;
         $prod->{LOADMETRIC} = $pwr_pct/100 * $nom_pwr ;
     }
-    
+
     return $prod;
 }
 
@@ -188,7 +189,7 @@ __END__
 
 =head1 NAME
 
-B<apcupsd_pct>, B<apcupsd_volt>, B<apcupsd_time>, B<apcupsd_pwd>- munin plugin for APC UPS
+B<apcupsd_pct>, B<apcupsd_volt>, B<apcupsd_time>, B<apcupsd_pwr>- munin plugin for APC UPS
 
 =head1 SYNOPSIS
 
@@ -198,7 +199,7 @@ B<apcupsd_volt> [ I<config>|I<fetch> ]
 
 B<apcupsd_time> [ I<config>|I<fetch> ]
 
-B<apcupsd_pwr> [ I<config>|I<fetch> ]
+B<apcupsd_pwr>  [ I<config>|I<fetch> ]
 
 =head1 DESCRIPTION
 
@@ -227,6 +228,8 @@ patches and collaborators are welcome.
 
 =head1 SEE ALSO
 
+L<http://exchange.munin-monitoring.org/plugins/apcupsd_pct/details>
+
 L<http://munin.projects.linpro.no/wiki/HowToWritePlugins>,
 L<http://munin.projects.linpro.no/wiki/protocol-config>
 
@@ -235,6 +238,7 @@ L<http://munin.projects.linpro.no/wiki/protocol-config>
 HIROSE, Masaaki E<lt>hirose31 _at_ gmail.comE<gt>
 
 =head1 CHANGELOG
+
     * 10/11/2010 - basos - added support for absolute power display
 
 =head1 COPYRIGHT & LICENSE
