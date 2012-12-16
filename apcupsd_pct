@@ -34,7 +34,7 @@ pct
     100.0 Percent
 
 volt
-  LINEV     is the current line voltage as returned by the UPS.
+  LINEV     is the current input line voltage as returned by the UPS.
     102.0 Volts
   BATTV     is the battery voltage as supplied by the UPS.
     13.5 Volts
@@ -85,7 +85,7 @@ sub decide_monitor_type {
         $Graph{graph_vlabel}  = "Volts";
         %Metric =(
             LINEV => {
-                label    => "line voltage as returned by the UPS",
+                label    => "input line voltage as returned by the UPS",
             },
             BATTV => {
                 label    => "battery voltage as supplied by the UPS",
