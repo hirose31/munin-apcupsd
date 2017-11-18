@@ -237,18 +237,18 @@ munin plugin to monitor APC UPS via apcupsd by apcaccess.
 
 =head1 INSTALLATION
 
-  cp apcupsd_pct $MUNIN_LIBDIR/plugsin/
+  cp apcupsd_pct $MUNIN_LIBDIR/plugins/
   
   cd YOUR_MUNIN_PLUGINS_DIR
   (make symbolic links different name)
-  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pct apcupsd_pct
-  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pct apcupsd_volt
-  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pct apcupsd_time
-  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pwr apcupsd_pwr
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pct apcupsd_pct
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pct apcupsd_volt
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pct apcupsd_time
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pwr apcupsd_pwr
 
   Or replace volt by mains and batt to separate the view
-  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pct apcupsd_mains
-  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pct apcupsd_batt
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pct apcupsd_mains
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pct apcupsd_batt
   
   restart munin-node
 
