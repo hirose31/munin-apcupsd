@@ -104,6 +104,7 @@ sub decide_monitor_type {
     } elsif ($type eq "mains") {
         $Graph{graph_title}  .= "Mains Voltage";
         $Graph{graph_vlabel}  = "Volts";
+        $Graph{graph_args}  = "--base 1000";
         %Metric =(
             LINEV => {
                 label    => "input line voltage as returned by the UPS",
