@@ -39,6 +39,14 @@ volt
   BATTV     is the battery voltage as supplied by the UPS.
     13.5 Volts
 
+mains
+  LINEV     is the current input line voltage as returned by the UPS.
+    102.0 Volts
+
+batt
+  BATTV     is the battery voltage as supplied by the UPS.
+    13.5 Volts
+
 time
   TIMELEFT  is the remaining runtime left on batteries as estimated by the UPS.
     38.4 Minutes
@@ -57,6 +65,8 @@ pwr
 sub decide_monitor_type {
     my $type = $0 =~ /_pct/  ? "pct"  :
                $0 =~ /_volt/ ? "volt" :
+               $0 =~ /_mains/ ? "mains" :
+               $0 =~ /_batt/ ? "batt" :
                $0 =~ /_time/ ? "time" :
                $0 =~ /_pwr/  ? "pwr"  : undef
                    or croak "unknown monitor type: $0";
@@ -87,6 +97,23 @@ sub decide_monitor_type {
             LINEV => {
                 label    => "input line voltage as returned by the UPS",
             },
+            BATTV => {
+                label    => "battery voltage as supplied by the UPS",
+            },
+           );
+    } elsif ($type eq "mains") {
+        $Graph{graph_title}  .= "Mains Voltage";
+        $Graph{graph_vlabel}  = "Volts";
+        $Graph{graph_args}  = "--base 1000";
+        %Metric =(
+            LINEV => {
+                label    => "input line voltage as returned by the UPS",
+            },
+           );
+    } elsif ($type eq "batt") {
+        $Graph{graph_title}  .= "Battery Voltage";
+        $Graph{graph_vlabel}  = "Volts";
+        %Metric =(
             BATTV => {
                 label    => "battery voltage as supplied by the UPS",
             },
@@ -189,13 +216,17 @@ __END__
 
 =head1 NAME
 
-B<apcupsd_pct>, B<apcupsd_volt>, B<apcupsd_time>, B<apcupsd_pwr>- munin plugin for APC UPS
+B<apcupsd_pct>, B<apcupsd_volt>, B<apcupsd_mains>, B<apcupsd_batt>, B<apcupsd_time>, B<apcupsd_pwr>- munin plugin for APC UPS
 
 =head1 SYNOPSIS
 
 B<apcupsd_pct>  [ I<config>|I<fetch> ]
 
 B<apcupsd_volt> [ I<config>|I<fetch> ]
+
+B<apcupsd_mains> [ I<config>|I<fetch> ]
+
+B<apcupsd_batt> [ I<config>|I<fetch> ]
 
 B<apcupsd_time> [ I<config>|I<fetch> ]
 
@@ -207,14 +238,18 @@ munin plugin to monitor APC UPS via apcupsd by apcaccess.
 
 =head1 INSTALLATION
 
-  cp apcupsd_pct $MUNIN_LIBDIR/plugsin/
+  cp apcupsd_pct $MUNIN_LIBDIR/plugins/
   
   cd YOUR_MUNIN_PLUGINS_DIR
   (make symbolic links different name)
-  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pct apcupsd_pct
-  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pct apcupsd_volt
-  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pct apcupsd_time
-  ln -s $MUNIN_LIBDIR/plugsin/apcupsd_pwr apcupsd_pwr
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pct apcupsd_pct
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pct apcupsd_volt
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pct apcupsd_time
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pwr apcupsd_pwr
+
+  Or replace volt by mains and batt to separate the view
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pct apcupsd_mains
+  ln -s $MUNIN_LIBDIR/plugins/apcupsd_pct apcupsd_batt
   
   restart munin-node
 
@@ -240,6 +275,7 @@ HIROSE, Masaaki E<lt>hirose31 _at_ gmail.comE<gt>
 =head1 CHANGELOG
 
     * 10/11/2010 - basos - added support for absolute power display
+    * 18/11/2017 - bobvandevijver - added support for splitted voltage
 
 =head1 COPYRIGHT & LICENSE
 
